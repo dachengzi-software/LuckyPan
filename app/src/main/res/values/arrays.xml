@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="names">
+        <item>梦琪</item>
+        <item>忆柳</item>
+        <item>之桃</item>
+        <item>慕青</item>
+        <item>问兰</item>
+        <item>尔岚</item>
+        <item>元香</item>
+        <item>初夏</item>
+        <item>沛菡</item>
+        <item>傲珊</item>
+        <item>曼文</item>
+        <item>乐菱</item>
+    </string-array>
+
+    <string-array name="icons">
+        <item>action</item>
+        <item>adventure</item>
+        <item>combat</item>
+        <item>moba</item>
+        <item>other</item>
+        <item>role</item>
+        <item>sports</item>
+        <item>words</item>
+    </string-array>
+
+    <string-array name="customizedColors">
+        <item>@color/red</item>
+        <item>@color/orange</item>
+        <item>@color/green</item>
+        <item>@color/lightBlue</item>
+        <item>@color/blue</item>
+        <item>@color/lightPurple</item>
+        <item>@color/purple</item>
+        <item>@color/pink</item>
+    </string-array>
+
+</resources>

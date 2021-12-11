@@ -7,14 +7,14 @@
     tools:showIn="@layout/activity_main" tools:context=".MainActivity"
     android:background="#ffffff">
 
-    <com.example.yue.luckypan.LuckyPan
+    <cn.bigorange.wheel.LuckyPan
         android:id="@+id/id_luckyPan"
         android:padding="30dp"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-    </com.example.yue.luckypan.LuckyPan>
+    </cn.bigorange.wheel.LuckyPan>
 
     <ImageView
         android:id="@+id/id_start_btn"

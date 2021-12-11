@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CommonTitleView">
+        <attr name="common_title" format="string"/>
+        <attr name="common_title_color" format="color"/>
+        <attr name="common_icon" format="reference"/>
+        <attr name="common_icon_sub" format="reference"/>
+        <attr name="common_icon_visible" format="boolean"/>
+        <attr name="common_icon_sub_visible" format="boolean"/>
+        <attr name="common_back_visible" format="boolean"/>
+        <attr name="common_back_drawable" format="reference"/>
+        <attr name="common_tx_sub_name" format="string"/>
+        <attr name="common_tx_sub_visible" format="boolean"/>
+        <attr name="common_ctv_background" format="color"/>
+        <attr name="common_ctv_tx_drawable_visible" format="boolean"/>
+        <attr name="common_ctv_tx_drawable" format="reference"/>
+    </declare-styleable>
+
+
+
+
+
+
+
+    <!-- 角标相对于View的对齐方式 -->
+    <attr name="common_badge_gravity">
+        <flag name="left" value="1" />
+        <flag name="top" value="2" />
+        <flag name="right" value="4" />
+        <flag name="bottom" value="8" />
+        <flag name="center" value="16" />
+    </attr>
+    <!--角标背景-->
+    <attr name="common_badge_background" format="reference|color" />
+
+    <!--角标边距-->
+    <attr name="common_badge_padding" format="reference|dimension" />
+    <!--角标左边距-->
+    <attr name="common_badge_paddingLeft" format="reference|dimension" />
+    <!--角标上边距-->
+    <attr name="common_badge_paddingTop" format="reference|dimension" />
+    <!--角标右边距-->
+    <attr name="common_badge_paddingRight" format="reference|dimension" />
+    <!--角标下边距-->
+    <attr name="common_badge_paddingBottom" format="reference|dimension" />
+
+    <!--角标横向偏移量-->
+    <attr name="common_badge_offsetX" format="reference|dimension" />
+    <!--角标纵向偏移量-->
+    <attr name="common_badge_offsetY" format="reference|dimension" />
+
+    <!--角标字体大小-->
+    <attr name="common_badge_textSize" format="reference|dimension" />
+    <!--角标字体颜色-->
+    <attr name="common_badge_textColor" format="reference|color" />
+    <!--文本加粗-->
+    <attr name="common_badge_boldText" format="boolean" />
+
+    <attr name="common_badge_visible" format="boolean" />
+
+    <!--小圆点半径-->
+    <attr name="common_badge_dotRadius" format="reference|dimension" />
+
+    <declare-styleable name="CommonBadge">
+
+        <!--角标对齐方式-->
+        <attr name="common_badge_gravity" />
+        <!--角标背景-->
+        <attr name="common_badge_background" />
+
+        <!--角标边距-->
+        <attr name="common_badge_padding" />
+        <!--角标左边距-->
+        <attr name="common_badge_paddingLeft" />
+        <!--角标上边距-->
+        <attr name="common_badge_paddingTop" />
+        <!--角标右边距-->
+        <attr name="common_badge_paddingRight" />
+        <!--角标下边距-->
+        <attr name="common_badge_paddingBottom" />
+
+        <!--角标横向偏移量-->
+        <attr name="common_badge_offsetX" />
+        <!--角标纵向偏移量-->
+        <attr name="common_badge_offsetY" />
+
+        <!--字体大小-->
+        <attr name="common_badge_textSize" />
+        <!--字体颜色-->
+        <attr name="common_badge_textColor" />
+        <!--文本加粗-->
+        <attr name="common_badge_boldText" />
+
+        <!-- 是否展示 -->
+        <attr name="common_badge_visible" />
+
+        <!--小圆点半径-->
+        <attr name="common_badge_dotRadius" />
+    </declare-styleable>
+
+</resources>
