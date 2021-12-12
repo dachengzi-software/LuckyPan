@@ -3,6 +3,8 @@ package cn.bigorange.wheel.ui
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
+import androidx.appcompat.app.AlertDialog
 import cn.bigorange.common.BaseActivity
 import cn.bigorange.common.utils.ListUtils
 import cn.bigorange.wheel.database.DatabaseHelper
@@ -21,7 +23,9 @@ class EditActivity : BaseActivity<ActivityEditBinding>() {
     }
 
     override fun initListener() {
-        binding.header.setOnCommonTitleBackClickListener { finish() }
+        binding.header.setOnCommonTitleBackClickListener {
+            isFangqi()
+        }
         binding.header.setOnCommonTitleIconSubClickListener {
             record?.let {
                 val question = binding.etQuestion.text.toString();
@@ -60,4 +64,25 @@ class EditActivity : BaseActivity<ActivityEditBinding>() {
         }
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            isFangqi()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    private fun isFangqi() {
+        AlertDialog.Builder(this).setTitle("放弃更改？")
+            .setMessage("未保存的内容将会被丢失").setPositiveButton(
+                "取消"
+            ) { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }.setNegativeButton(
+                "放弃"
+            ) { dialogInterface, i ->
+                dialogInterface.dismiss()
+                finish()
+            }.create().show()
+    }
 }

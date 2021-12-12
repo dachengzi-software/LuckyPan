@@ -8,9 +8,10 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:common_title="编辑"
-        app:common_icon_sub_visible="true"
+        app:common_back_drawable="@drawable/common_icon_close"
         app:common_icon_sub="@drawable/common_icon_confirm"
+        app:common_icon_sub_visible="true"
+        app:common_title="编辑"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
