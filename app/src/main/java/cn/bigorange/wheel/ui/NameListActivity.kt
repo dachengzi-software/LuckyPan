@@ -1,6 +1,7 @@
 package cn.bigorange.wheel.ui
 
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import cn.bigorange.wheel.R
@@ -11,7 +12,6 @@ import cn.bigorange.wheel.entity.Record
 import cn.bigorange.wheel.utils.DensityUtils
 import cn.bigorange.wheel.utils.RecyclerUtils
 import cn.bigorange.wheel.utils.SpaceItemDecoration
-import com.blankj.utilcode.util.ActivityUtils
 
 
 class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBinding>() {
@@ -24,7 +24,8 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
 
     override fun initListener() {
         binding.fab.setOnClickListener {
-            ActivityUtils.startActivity(InputActivity::class.java)
+            val intent = Intent(this, InputActivity::class.java)
+            startActivityForResult(intent, 101)
         }
 
     }
@@ -43,8 +44,14 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
         adapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.iv_edit -> {
-                    Toast.makeText(this@NameListActivity, "点击了编辑：$position", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, EditActivity::class.java))
+                    Toast.makeText(this@NameListActivity, "点击了编辑：$position", Toast.LENGTH_SHORT)
+                        .show()
+                    val bundle = Bundle();
+                    val selectedRecord = adapter.data[position] as Record
+                    bundle.putSerializable("record", selectedRecord)
+                    val intent = Intent(this, EditActivity::class.java)
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent, 100)
                 }
             }
         }
@@ -59,4 +66,10 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
         return records
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if ((requestCode == 100 || requestCode == 101) && resultCode == RESULT_OK) {
+            adapter.setNewInstance(mockData())
+        }
+    }
 }

@@ -18,7 +18,7 @@ class NameListAdapter(data: MutableList<Record>? = null) :
         item: Record
     ) {
         with(holder.vb) {
-            tvName.text = item.title
+            tvName.text = item.question
         }
     }
 

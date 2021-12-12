@@ -4,13 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.blankj.utilcode.util.StringUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bigorange.common.utils.ListUtils;
 import cn.bigorange.wheel.entity.Record;
 
 
@@ -18,14 +15,14 @@ public class DBNumbersRecords {
 
     public static final String TABLE_NAME = "record";
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_CONTENT = "content";
+    public static final String COLUMN_QUESTION = "question";
+    public static final String COLUMN_OPTIONS = "options";
 
     public static final String CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY autoincrement,"
-                    + COLUMN_TITLE + " TEXT,"
-                    + COLUMN_CONTENT + " TEXT"
+                    + COLUMN_QUESTION + " TEXT,"
+                    + COLUMN_OPTIONS + " TEXT"
                     + " )";
 
     //清空数据//自增长ID为0
@@ -38,18 +35,22 @@ public class DBNumbersRecords {
 
     static void insertRecord(SQLiteDatabase db, Record item) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TITLE, item.getTitle());
-        if (item.getOptionList() == null) {
-            item.setOptionList(new ArrayList<>());
-        }
-        Gson gson = new Gson();
-        String json = gson.toJson(item.getOptionList());
-        values.put(COLUMN_CONTENT, json);
+        values.put(COLUMN_QUESTION, item.getQuestion());
+        String json = ListUtils.listToString(item.getOptionList());
+        values.put(COLUMN_OPTIONS, json);
         db.insert(TABLE_NAME, null, values);
     }
 
     static int deleteRecordById(SQLiteDatabase db, long id) {
         return db.delete(TABLE_NAME, COLUMN_ID + " =? ", new String[]{String.valueOf(id)});
+    }
+
+    static int updateRecordById(SQLiteDatabase db, Record item) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_QUESTION, item.getQuestion());
+        String json = ListUtils.listToString(item.getOptionList());
+        values.put(COLUMN_OPTIONS, json);
+        return db.update(TABLE_NAME, values, COLUMN_ID + " =? ", new String[]{String.valueOf(item.getId())});
     }
 
     static Record selectRecordById(SQLiteDatabase db, long id) {
@@ -61,17 +62,9 @@ public class DBNumbersRecords {
                 if (cursor.moveToFirst()) {
                     item = new Record();
                     item.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
-                    item.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
-                    String content = cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT));
-                    if (StringUtils.isTrimEmpty(content)) {
-                        item.setOptionList(new ArrayList<>());
-                    } else {
-                        Gson gson = new Gson();
-                        List<String> optionList = gson.fromJson(content, new TypeToken<List<String>>() {
-                        }.getType());
-                        item.setOptionList(optionList);
-                    }
-
+                    item.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
+                    String options = cursor.getString(cursor.getColumnIndex(COLUMN_OPTIONS));
+                    item.setOptionList(ListUtils.stringToList(options));
                 }
             }
         } catch (Exception e) {
@@ -109,7 +102,7 @@ public class DBNumbersRecords {
         if (list.size() <= 0) {
             return result;
         }
-        String idListStr = org.apache.commons.lang3.StringUtils.join(list, ",");
+        String idListStr = org.apache.commons.lang3.StringUtils.join(list, ", ");
         try {
             return db.delete(TABLE_NAME, " id in (" + idListStr + ") ", null);//Delete all records of table
         } catch (Exception e) {
@@ -130,16 +123,9 @@ public class DBNumbersRecords {
                 while (cursor.moveToNext()) {
                     item = new Record();
                     item.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
-                    item.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
-                    String content = cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT));
-                    if (StringUtils.isTrimEmpty(content)) {
-                        item.setOptionList(new ArrayList<>());
-                    } else {
-                        Gson gson = new Gson();
-                        List<String> optionList = gson.fromJson(content, new TypeToken<List<String>>() {
-                        }.getType());
-                        item.setOptionList(optionList);
-                    }
+                    item.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
+                    String options = cursor.getString(cursor.getColumnIndex(COLUMN_OPTIONS));
+                    item.setOptionList(ListUtils.stringToList(options));
                     result.add(item);
                 }
             }
@@ -173,16 +159,9 @@ public class DBNumbersRecords {
                 while (cursor.moveToNext()) {
                     item = new Record();
                     item.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
-                    item.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
-                    String content = cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT));
-                    if (StringUtils.isTrimEmpty(content)) {
-                        item.setOptionList(new ArrayList<>());
-                    } else {
-                        Gson gson = new Gson();
-                        List<String> optionList = gson.fromJson(content, new TypeToken<List<String>>() {
-                        }.getType());
-                        item.setOptionList(optionList);
-                    }
+                    item.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
+                    String options = cursor.getString(cursor.getColumnIndex(COLUMN_OPTIONS));
+                    item.setOptionList(ListUtils.stringToList(options));
                     result.add(item);
                 }
             }

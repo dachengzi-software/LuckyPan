@@ -33,18 +33,18 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="标题"
+                android:text="问题"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/edit_title"
+                android:id="@+id/et_question"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -52,13 +52,13 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:background="@null"
-                android:hint="请输入标题"
+                android:hint="请输入问题"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_question"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
@@ -80,12 +80,12 @@
             android:padding="16dp">
 
             <EditText
-                android:id="@+id/edit_content"
+                android:id="@+id/et_options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="left|top"
-                android:hint="请输入内容，例如：张三，李四，王五"
+                android:hint="请输入选项，例如：张三，李四，王五"
                 android:inputType="textMultiLine"
                 android:minLines="6"
                 android:textSize="14sp" />

@@ -41,7 +41,7 @@ class CommonTitleView(context: Context, attrs: AttributeSet?, defStyleAttr: Int,
     private fun initView(context: Context) {
         val view = inflate(context, R.layout.common_view_title, this)
         llRoot = view.findViewById(R.id.ll_root)
-        tvTitle = view.findViewById(R.id.tv_title)
+        tvTitle = view.findViewById(R.id.tv_question)
         ivBack = view.findViewById(R.id.iv_back)
         ivIcon = view.findViewById(R.id.iv_icon)
         ivIconSub = view.findViewById(R.id.iv_icon_sub)

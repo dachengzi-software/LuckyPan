@@ -64,6 +64,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return DBNumbersRecords.getAllRecordsByStartIndex(getWritableDatabase(), startIndex, pageSize);
     }
 
+    public synchronized int updateRecordById(Record record) {
+        return DBNumbersRecords.updateRecordById(getWritableDatabase(), record);
+    }
+
     public synchronized Record selectRecordById(long id) {
         return DBNumbersRecords.selectRecordById(getWritableDatabase(), id);
     }

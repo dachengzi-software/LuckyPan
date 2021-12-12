@@ -1,11 +1,12 @@
 package cn.bigorange.wheel.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Record {
+public class Record implements Serializable {
 
     private long id;
-    private String title;
+    private String question;
     private List<String> optionList;
 
     public long getId() {
@@ -16,12 +17,12 @@ public class Record {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public List<String> getOptionList() {
