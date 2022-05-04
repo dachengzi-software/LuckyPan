@@ -8,4 +8,8 @@
     <color name="common_black">#FF000000</color>
     <color name="common_white">#FFFFFFFF</color>
 
+    <color name="color_tx_333333">#333333</color>
+    <color name="color_tx_666666">#666666</color>
+    <color name="color_tx_999999">#999999</color>
+
 </resources>

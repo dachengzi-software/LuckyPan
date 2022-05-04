@@ -6,11 +6,12 @@ buildscript {
         google()
         maven { url 'https://repo1.maven.org/maven2/' }
         mavenCentral() //【友盟+】SDK新maven仓库地址
+        jcenter()
     }
     dependencies {
 //        classpath 'com.android.tools.build:gradle:3.4.0'
-        classpath "com.android.tools.build:gradle:7.0.3"
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0'
+        classpath "com.android.tools.build:gradle:7.0.1"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -21,6 +22,8 @@ allprojects {
     repositories {
         google()
         maven { url 'https://jitpack.io' }
+        jcenter()
+        mavenCentral()
 
         //Bmob的maven仓库地址--必填
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }

@@ -10,7 +10,7 @@ class NameListAdapter(data: MutableList<Record>? = null) :
     BaseAdapter<ItemNameList2Binding, Record>(data) {
 
     init {
-        addChildClickViewIds(R.id.iv_edit)
+        addChildClickViewIds(R.id.iv_option)
     }
 
     override fun convert(
