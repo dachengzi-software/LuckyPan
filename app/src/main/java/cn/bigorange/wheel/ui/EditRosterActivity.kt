@@ -39,9 +39,13 @@ class EditRosterActivity : BaseActivity<ActivityEditRosterBinding>() {
                 }
                 it.title = title
                 it.optionList = optionList
+                val time = System.currentTimeMillis()
                 if (it.id != 0L) {
+                    it.updateTime = time
                     DatabaseHelper.getInstance().updateRosterById(it)
                 } else {
+                    it.createTime = time
+                    it.updateTime = time
                     DatabaseHelper.getInstance().insertRoster(it)
                 }
                 val intent = Intent()

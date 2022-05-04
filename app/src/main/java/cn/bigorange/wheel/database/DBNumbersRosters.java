@@ -16,12 +16,16 @@ public class DBNumbersRosters {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_OPTIONS = "options";
+    public static final String COLUMN_CREATE_TIME = "createTime";//创建时间 时间毫秒
+    public static final String COLUMN_UPDATE_TIME = "updateTime";//更新时间 时间毫秒
 
     public static final String CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY autoincrement,"
                     + COLUMN_TITLE + " TEXT,"
-                    + COLUMN_OPTIONS + " TEXT"
+                    + COLUMN_OPTIONS + " TEXT,"
+                    + COLUMN_CREATE_TIME + " INTEGER,"
+                    + COLUMN_UPDATE_TIME + " INTEGER"
                     + " )";
 
     //清空数据//自增长ID为0
@@ -35,8 +39,9 @@ public class DBNumbersRosters {
     static void insertRoster(SQLiteDatabase db, Roster item) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, item.getTitle());
-        String json = ListUtils.listToString(item.getOptionList());
-        values.put(COLUMN_OPTIONS, json);
+        values.put(COLUMN_OPTIONS, ListUtils.listToString(item.getOptionList()));
+        values.put(COLUMN_CREATE_TIME, item.getCreateTime());
+        values.put(COLUMN_UPDATE_TIME, item.getUpdateTime());
         db.insert(TABLE_NAME, null, values);
     }
 
@@ -47,8 +52,8 @@ public class DBNumbersRosters {
     static int updateRosterById(SQLiteDatabase db, Roster item) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, item.getTitle());
-        String json = ListUtils.listToString(item.getOptionList());
-        values.put(COLUMN_OPTIONS, json);
+        values.put(COLUMN_OPTIONS, ListUtils.listToString(item.getOptionList()));
+        values.put(COLUMN_UPDATE_TIME, item.getUpdateTime());
         return db.update(TABLE_NAME, values, COLUMN_ID + " =? ", new String[]{String.valueOf(item.getId())});
     }
 
@@ -64,6 +69,8 @@ public class DBNumbersRosters {
                     item.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
                     String options = cursor.getString(cursor.getColumnIndex(COLUMN_OPTIONS));
                     item.setOptionList(ListUtils.stringToList(options));
+                    item.setCreateTime(cursor.getLong(cursor.getColumnIndex(COLUMN_CREATE_TIME)));
+                    item.setUpdateTime(cursor.getLong(cursor.getColumnIndex(COLUMN_UPDATE_TIME)));
                 }
             }
         } catch (Exception e) {
@@ -127,6 +134,8 @@ public class DBNumbersRosters {
                         String options = cursor.getString(cursor.getColumnIndex(COLUMN_OPTIONS));
                         item.setOptionList(ListUtils.stringToList(options));
                     }
+                    item.setCreateTime(cursor.getLong(cursor.getColumnIndex(COLUMN_CREATE_TIME)));
+                    item.setUpdateTime(cursor.getLong(cursor.getColumnIndex(COLUMN_UPDATE_TIME)));
                     result.add(item);
                 }
             }
@@ -163,6 +172,8 @@ public class DBNumbersRosters {
                     item.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
                     String options = cursor.getString(cursor.getColumnIndex(COLUMN_OPTIONS));
                     item.setOptionList(ListUtils.stringToList(options));
+                    item.setCreateTime(cursor.getLong(cursor.getColumnIndex(COLUMN_CREATE_TIME)));
+                    item.setUpdateTime(cursor.getLong(cursor.getColumnIndex(COLUMN_UPDATE_TIME)));
                     result.add(item);
                 }
             }
