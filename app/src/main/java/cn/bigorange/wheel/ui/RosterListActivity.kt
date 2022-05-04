@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bigorange.wheel.R
-import cn.bigorange.wheel.adapter.NameListAdapter
+import cn.bigorange.wheel.adapter.RosterListAdapter
 import cn.bigorange.wheel.database.DatabaseHelper
 import cn.bigorange.wheel.databinding.ActivityNameListBinding
-import cn.bigorange.wheel.entity.Record
+import cn.bigorange.wheel.entity.Roster
 
 
-class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBinding>() {
+class RosterListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBinding>() {
 
-    private val adapter = NameListAdapter(ArrayList())
+    private val adapter = RosterListAdapter(ArrayList())
 
     override fun initView() {
         initRecycler()
@@ -27,7 +27,7 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
 
     override fun initListener() {
         binding.tvAdd.setOnClickListener {
-            val intent = Intent(this, EditActivity::class.java)
+            val intent = Intent(this, EditRosterActivity::class.java)
             startActivityForResult(intent, 101)
         }
     }
@@ -48,14 +48,14 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
             }
         }
         adapter.setOnItemClickListener { adapter, view, position ->
-            val record = adapter.data[position] as Record
+            val roster = adapter.data[position] as Roster
             val myAlertDialog = AlertDialog.Builder(this)
                 .setTitle("提示")
-                .setMessage("是否确定选择名单：${record.question}？")
+                .setMessage("是否确定选择名单：${roster.title}？")
                 .setPositiveButton("确定") { dialog, which ->
-                    Toast.makeText(this, "选择了：${record.question}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "选择了：${roster.title}", Toast.LENGTH_SHORT).show()
 //                    val intent = Intent()
-//                    intent.putExtra("record", record)
+//                    intent.putExtra("roster", roster)
 //                    setResult(RESULT_OK, intent)
 //                    finish()
                 }
@@ -68,7 +68,7 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
 
     private fun showPopupMenu(view: View, position: Int) {
         // 这里的view代表popupMenu需要依附的view
-        val popupMenu = PopupMenu(this@NameListActivity, view)
+        val popupMenu = PopupMenu(this@RosterListActivity, view)
         // 获取布局文件
         popupMenu.menuInflater.inflate(R.menu.sample_menu, popupMenu.menu)
         // 通过上面这几行代码，就可以把控件显示出来了
@@ -80,26 +80,26 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
                 // 控件每一个item的点击事件
                 when (item.itemId) {
                     R.id.edit -> {
-                        Toast.makeText(this@NameListActivity, "点击了编辑：$position", Toast.LENGTH_SHORT).show()
-                        val selectedRecord = adapter.data[position]
-                        val intent = Intent(this@NameListActivity, EditActivity::class.java)
-                        intent.putExtra("id", selectedRecord.id.toString())
+                        Toast.makeText(this@RosterListActivity, "点击了编辑：$position", Toast.LENGTH_SHORT).show()
+                        val selectedRoster = adapter.data[position]
+                        val intent = Intent(this@RosterListActivity, EditRosterActivity::class.java)
+                        intent.putExtra("id", selectedRoster.id.toString())
                         startActivityForResult(intent, 100)
                     }
                     R.id.share -> {
 
                     }
                     R.id.delete -> {
-                        val selectedRecord = adapter.data[position]
-                        val myAlertDialog = AlertDialog.Builder(this@NameListActivity)
+                        val selectedRoster = adapter.data[position]
+                        val myAlertDialog = AlertDialog.Builder(this@RosterListActivity)
                             .setTitle("提示")
-                            .setMessage("是否删除名单：${selectedRecord.question}？")
+                            .setMessage("是否删除名单：${selectedRoster.title}？")
                             .setPositiveButton("确定") { dialog, which ->
-                                val result = DatabaseHelper.getInstance().deleteRecordById(selectedRecord.id)
+                                val result = DatabaseHelper.getInstance().deleteRosterById(selectedRoster.id)
                                 if (result > 0) {
                                     adapter.removeAt(position)
                                 } else {
-                                    Toast.makeText(this@NameListActivity, "删除失败！", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@RosterListActivity, "删除失败！", Toast.LENGTH_SHORT).show()
                                 }
                             }
                             .setNegativeButton("取消") { dialog, which ->
@@ -117,9 +117,8 @@ class NameListActivity : cn.bigorange.common.BaseActivity<ActivityNameListBindin
         popupMenu.show()
     }
 
-    private fun mockData(): MutableList<Record> {
-        val records = DatabaseHelper.getInstance().allRecords;
-        return records
+    private fun mockData(): MutableList<Roster> {
+        return DatabaseHelper.getInstance().getAllRosters(false)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

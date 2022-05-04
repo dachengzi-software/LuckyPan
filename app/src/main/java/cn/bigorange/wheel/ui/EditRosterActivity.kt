@@ -7,15 +7,15 @@ import cn.bigorange.common.BaseActivity
 import cn.bigorange.common.utils.ListUtils
 import cn.bigorange.wheel.R
 import cn.bigorange.wheel.database.DatabaseHelper
-import cn.bigorange.wheel.databinding.ActivityEditBinding
-import cn.bigorange.wheel.entity.Record
+import cn.bigorange.wheel.databinding.ActivityEditRosterBinding
+import cn.bigorange.wheel.entity.Roster
 import com.blankj.utilcode.util.ToastUtils
 import org.apache.commons.lang3.StringUtils
 
 
-class EditActivity : BaseActivity<ActivityEditBinding>() {
+class EditRosterActivity : BaseActivity<ActivityEditRosterBinding>() {
 
-    private var record: Record? = null
+    private var roster: Roster? = null
 
     override fun initView() {
     }
@@ -26,9 +26,9 @@ class EditActivity : BaseActivity<ActivityEditBinding>() {
             finish()
         }
         binding.header.setOnCommonTitleIconSubClickListener {
-            record?.let {
-                val question = binding.etTitle.text.toString();
-                if (StringUtils.isEmpty(question)) {
+            roster?.let {
+                val title = binding.etTitle.text.toString();
+                if (StringUtils.isEmpty(title)) {
                     ToastUtils.showShort("请输入名单标题");
                     return@let
                 }
@@ -37,16 +37,16 @@ class EditActivity : BaseActivity<ActivityEditBinding>() {
                     ToastUtils.showShort("请至少输入2个选项");
                     return@let
                 }
-                it.question = question
+                it.title = title
                 it.optionList = optionList
                 if (it.id != 0L) {
-                    DatabaseHelper.getInstance().updateRecordById(it)
+                    DatabaseHelper.getInstance().updateRosterById(it)
                 } else {
-                    DatabaseHelper.getInstance().insertRecord(it)
+                    DatabaseHelper.getInstance().insertRoster(it)
                 }
                 val intent = Intent()
-                this@EditActivity.setResult(RESULT_OK, intent)
-                this@EditActivity.finish()
+                this@EditRosterActivity.setResult(RESULT_OK, intent)
+                this@EditRosterActivity.finish()
             }
         }
         binding.etOptions.addTextChangedListener(object : TextWatcher {
@@ -61,16 +61,16 @@ class EditActivity : BaseActivity<ActivityEditBinding>() {
 
     override fun initData() {
         intent.getStringExtra("id")?.let {
-            record = DatabaseHelper.getInstance().selectRecordById(it.toLong())
+            roster = DatabaseHelper.getInstance().selectRosterById(it.toLong())
         }
-        if (record == null) {
-            record = Record()
+        if (roster == null) {
+            roster = Roster()
         }
-        if (record?.id != 0L) {
+        if (roster?.id != 0L) {
             binding.header.setTvTitle("修改名单")
-            binding.etTitle.setText(record!!.question)
-            binding.tvAmount.text = resources.getString(R.string.total_amount, record!!.optionList.size.toString())
-            binding.etOptions.setText(StringUtils.join(record!!.optionList, ", "))
+            binding.etTitle.setText(roster!!.title)
+            binding.tvAmount.text = resources.getString(R.string.total_amount, roster!!.optionList.size.toString())
+            binding.etOptions.setText(StringUtils.join(roster!!.optionList, ", "))
         } else {
             binding.header.setTvTitle("新增名单")
             binding.etTitle.setText("")
