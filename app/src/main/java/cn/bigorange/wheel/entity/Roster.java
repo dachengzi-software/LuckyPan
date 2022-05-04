@@ -8,8 +8,8 @@ public class Roster implements Serializable {
     private long id;
     private String title;
     private List<String> optionList;
-    public long createTime;
-    public long updateTime;
+    private long createTime;
+    private long updateTime;
 
     public long getId() {
         return id;
